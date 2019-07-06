@@ -1,7 +1,6 @@
 package com.bill.eshop.order.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,50 +10,95 @@ import org.springframework.web.client.RestTemplate;
 import com.bill.eshop.order.entity.Order;
 import com.bill.eshop.order.entity.Product;
 import com.bill.eshop.order.entity.User;
+import com.bill.eshop.order.hystirx.command.GetOrderInfoCommand;
+import com.netflix.hystrix.HystrixCommand;
 
 @RestController
 public class OrderController {
 
 	@Autowired
 	RestTemplate restTemplate;
-
-	private Order order;
-
-	OrderController() {
-
-		// 生成一个订单，该订单的用户为UID001,购买的产品为PID001
-		order = new Order();
-		order.setOrderId("OID0001");
-		order.setUserId("UID0001");
-		order.setProductId("PID0001");
-		order.setOrderDateTime("2019-01-01 00:00:00");
+	
+	@RequestMapping("/test")
+	public String test() {
+		System.out.println("hello!");
+		return "hello";
 	}
 
 	@RequestMapping(value = "/order/{orderId}", method = RequestMethod.GET)
 	public Order select(@PathVariable("orderId") String orderId) {
 
-		// 获取order对象。（本应从数据库或缓存中获取订单信息，为简化逻辑，订单在构造环境中生成，通过getOrder()方法取得。）
-		Order order = this.getOrder(orderId);
+		HystrixCommand<Order> command = new GetOrderInfoCommand(restTemplate,orderId);
 
-		// 调用用户服务，获得user对象
-		User user = restTemplate.getForObject("http://ESHOP-USERSERIVICE/user/" + order.getUserId(), User.class);
-		order.setUser(user);
-
-		// 调用产品服务，获得product对象
-		Product product = restTemplate.getForObject("http://ESHOP-PRODUCTSERIVICE/product/" + order.getProductId(),
-				Product.class);
-		order.setProduct(product);
-
+		Order order = command.execute();
 		return order;
 	}
+	
+//	public Order selectError(@PathVariable("orderId") String orderId) {
+//		System.out.println("服务熔断！");
+//		return null;
+//	}
 
-	private Order getOrder(String orderId) {
-		Order order = null;
 
-		if (!StringUtils.isEmpty(orderId) && "OID0001".equals(orderId)) {
-			order = this.order;
-		}
-
-		return order;
-	}
+	
+//	@RequestMapping(value = "/test/01", method = RequestMethod.GET)
+//	@HystrixCommand(fallbackMethod = "test01Error")
+//	public void test01() {
+//		User user = restTemplate.getForObject("http://ESHOP-USERSERIVICE/user/" + order.getUserId(), User.class);
+//	}
+//	
+//	public void test01Error() {
+//		System.out.println("短路01！");
+//	}
+//	
+//	@RequestMapping(value = "/test/02", method = RequestMethod.GET)
+//	@HystrixCommand(fallbackMethod = "test02Error")
+//	public void test02() {
+//		User user = restTemplate.getForObject("http://ESHOP-USERSERIVICE/user/" + order.getUserId(), User.class);
+//	}
+//	
+//	public void test02Error() {
+//		System.out.println("短路02！");
+//	}
+//	
+//	@RequestMapping(value = "/test/03", method = RequestMethod.GET)
+//	@HystrixCommand(fallbackMethod = "test03Error")
+//	public void test03() {
+//		User user = restTemplate.getForObject("http://ESHOP-USERSERIVICE/user/" + order.getUserId(), User.class);
+//	}
+//	
+//	public void test03Error() {
+//		System.out.println("短路03！");
+//	}
+//	
+//	@RequestMapping(value = "/test/04", method = RequestMethod.GET)
+//	@HystrixCommand(fallbackMethod = "test04Error")
+//	public void test04() {
+//		User user = restTemplate.getForObject("http://ESHOP-USERSERIVICE/user/" + order.getUserId(), User.class);
+//	}
+//	
+//	public void test04Error() {
+//		System.out.println("短路04！");
+//	}
+//	
+//	@RequestMapping(value = "/test/05", method = RequestMethod.GET)
+//	@HystrixCommand(fallbackMethod = "test05Error")
+//	public void test05() {
+//		User user = restTemplate.getForObject("http://ESHOP-USERSERIVICE/user/" + order.getUserId(), User.class);
+//	}
+//	
+//	public void test05Error() {
+//		System.out.println("短路05！");
+//	}
+//	
+//	@RequestMapping(value = "/test/06", method = RequestMethod.GET)
+//	@HystrixCommand(fallbackMethod = "test06Error")
+//	public void test06() {
+//		User user = restTemplate.getForObject("http://ESHOP-USERSERIVICE/user/" + order.getUserId(), User.class);
+//	}
+//	
+//	public void test06Error() {
+//		System.out.println("短路06！");
+//	}
+	
 }

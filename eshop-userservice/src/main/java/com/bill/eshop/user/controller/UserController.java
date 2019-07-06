@@ -25,6 +25,8 @@ public class UserController {
 			user.setAddress("银河系地球村101号房");
 			user.setPhone("1681388888");
 		}
+		
+		System.out.println(user.toString());
 
 		return user;
 	}

@@ -10,7 +10,7 @@ import com.roncoo.eshop.inventory.service.ProductInventoryService;
  * @author seabreeze
  *
  */
-public class InventoryCntDBUpdateRequest implements Request {
+public class ProductInventoryDBUpdateRequest implements Request {
 
 	/*
 	 * 商品库存
@@ -22,7 +22,7 @@ public class InventoryCntDBUpdateRequest implements Request {
 	 */
 	private ProductInventoryService productInventoryService;
 	
-	public InventoryCntDBUpdateRequest(ProductInventory productInventory,ProductInventoryService productInventoryService){
+	public ProductInventoryDBUpdateRequest(ProductInventory productInventory,ProductInventoryService productInventoryService){
 		this.productInventory = productInventory;
 		this.productInventoryService = productInventoryService;
 	}

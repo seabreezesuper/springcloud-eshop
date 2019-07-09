@@ -89,6 +89,14 @@ public class ProductInventoryController {
 					waitTime = endTime - startTime;
 				}
 			}
+			
+			// 最后一次尝试，直接从数据库读取数据
+			productInventory = productInventoryService.findProductInventory(productId);
+			
+			if(productInventory != null) {
+				return productInventory;
+			}
+					
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -19,4 +19,16 @@ public interface ProductInventoryService {
 	 * @param productInventory
 	 */
 	void removeProductInventoryCache(ProductInventory productInventory);
+	
+	/**
+	 * 根据商品ID查询最新商品库存数量
+	 * @param productInventory
+	 */
+	ProductInventory findProductInventory(Integer productId);
+	
+	/**
+	 * 设置Redis缓存中的商品库存
+	 * @param productInventory
+	 */
+	void setProductInventoryCache(ProductInventory productInventory);
 }

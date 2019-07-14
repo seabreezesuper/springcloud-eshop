@@ -4,7 +4,7 @@
 <mapper namespace="com.bill.eshop.inventory.mapper.ProductInventoryMapper">
  
   	<update id="updateProductInventory" parameterType="com.bill.eshop.inventory.model.ProductInventory">
-		update public."PRODUCT_INVENTORY" set cnt = #{inventoryCnt} where product_id = #{productId};
+		update public."PRODUCT_INVENTORY" set inventory_cnt = #{inventoryCnt} where product_id = #{productId};
   	</update>
   	
   	<select id="findProductInventory" resultType="com.bill.eshop.inventory.model.ProductInventory">

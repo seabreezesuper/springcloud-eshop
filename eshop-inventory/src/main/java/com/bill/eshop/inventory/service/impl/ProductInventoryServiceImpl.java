@@ -2,6 +2,7 @@ package com.bill.eshop.inventory.service.impl;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.bill.eshop.inventory.dao.RedisDAO;
@@ -9,6 +10,7 @@ import com.bill.eshop.inventory.mapper.ProductInventoryMapper;
 import com.bill.eshop.inventory.model.ProductInventory;
 import com.bill.eshop.inventory.service.ProductInventoryService;
 
+@Service("productInventoryService")
 public class ProductInventoryServiceImpl implements ProductInventoryService{
 
 	@Resource
@@ -43,14 +45,14 @@ public class ProductInventoryServiceImpl implements ProductInventoryService{
 	@Override
 	public ProductInventory getProductInventoryCache(Integer productId) {
 		
-		Long inventoryCnt = 0L;
+		Integer inventoryCnt = 0;
 		
 		String key = "product:inventory:"+productId;
 		String result = redisDAo.get(key);
 		
 		if(!StringUtils.isEmpty(result)) {
 			try {
-				inventoryCnt = Long.valueOf(result);
+				inventoryCnt = Integer.valueOf(result);
 				return new ProductInventory(productId,inventoryCnt);
 			}catch(Exception e) {
 				e.printStackTrace();

@@ -2,11 +2,14 @@ package com.bill.eshop.inventory.service.impl;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
+import org.springframework.stereotype.Service;
+
 import com.bill.eshop.inventory.request.Request;
 import com.bill.eshop.inventory.request.RequestQueue;
 import com.bill.eshop.inventory.service.RequestAsyncProcessService;
 
-public class RequestAsyncProcessImpl implements RequestAsyncProcessService {
+@Service("requestAsyncProcessService")
+public class RequestAsyncProcessServiceImpl implements RequestAsyncProcessService {
 
 
 	@Override

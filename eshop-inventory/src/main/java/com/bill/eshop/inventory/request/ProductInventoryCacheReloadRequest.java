@@ -30,8 +30,14 @@ public class ProductInventoryCacheReloadRequest implements Request {
 		// 从数据库中查询最新的商品库存数量
 		ProductInventory productInventory = productInventoryService.findProductInventory(productId);
 		
-		// 将以上商品库存数量，刷新到缓存
-		productInventoryService.setProductInventoryCache(productInventory);
+		if(productInventory!=null) {
+			// 将以上商品库存数量，刷新到缓存
+			productInventoryService.setProductInventoryCache(productInventory);	
+		}else {
+			productInventoryService.setProductInventoryCache(new ProductInventory(productId,-1));	
+		}
+		
+
 	}
 
 	@Override

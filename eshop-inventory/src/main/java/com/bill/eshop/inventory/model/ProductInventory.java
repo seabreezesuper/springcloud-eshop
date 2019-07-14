@@ -9,9 +9,9 @@ public class ProductInventory {
 
 	private Integer productId;
 	
-	private Long inventoryCnt;
+	private Integer inventoryCnt;
 
-	public ProductInventory(Integer productId, Long inventoryCnt) {
+	public ProductInventory(Integer productId, Integer inventoryCnt) {
 		this.productId = productId;
 		this.inventoryCnt = inventoryCnt;
 	}
@@ -24,13 +24,14 @@ public class ProductInventory {
 		this.productId = productId;
 	}
 
-	public Long getInventoryCnt() {
+	public Integer getInventoryCnt() {
 		return inventoryCnt;
 	}
 
-	public void setInventoryCnt(Long inventoryCnt) {
+	public void setInventoryCnt(Integer inventoryCnt) {
 		this.inventoryCnt = inventoryCnt;
 	}
-	
+
+
 	
 }

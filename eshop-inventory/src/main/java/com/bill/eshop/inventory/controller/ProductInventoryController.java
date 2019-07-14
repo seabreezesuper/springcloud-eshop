@@ -101,7 +101,7 @@ public class ProductInventoryController {
 			e.printStackTrace();
 		}
 
-		return new ProductInventory(productId,-1L);
+		return new ProductInventory(productId,-1);
 	}
 	
 }

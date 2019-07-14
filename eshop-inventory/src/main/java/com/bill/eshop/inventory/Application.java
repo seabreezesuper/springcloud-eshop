@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @EnableAutoConfiguration
 @SpringBootApplication
 @ComponentScan
-@MapperScan("com.roncoo.eshop.inventory.mapper")
+@MapperScan("com.bill.eshop.inventory.mapper")
 public class Application {
     
 

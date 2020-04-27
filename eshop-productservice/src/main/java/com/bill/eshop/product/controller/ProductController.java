@@ -2,6 +2,7 @@ package com.bill.eshop.product.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ public class ProductController {
 	@Autowired
 	RestTemplate restTemplate;
 
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	@RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
 	@HystrixCommand(fallbackMethod="selectErr")
 	public Product select(@PathVariable("productId") String productId) {
